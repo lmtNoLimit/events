@@ -40,7 +40,7 @@
                 <h1 class="h2">Manage Events</h1>
                 <div class="btn-toolbar mb-2 mb-md-0">
                     <div class="btn-group mr-2">
-                        <a href="events/create.html" class="btn btn-sm btn-outline-secondary">Create new event</a>
+                        <a href="events/create" class="btn btn-sm btn-outline-secondary">Create new event</a>
                     </div>
                 </div>
             </div>

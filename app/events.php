@@ -10,9 +10,9 @@ class events extends Model
     protected $table = "events";
 
     // lien ket toi organuzer
-    public funciton organizer()
+    public function organizer()
     {
-    	return $this->belongsto('app\organizers')
+    	return $this->belongsto('app\organizers');
     }
 
     // lien ket toi tickets

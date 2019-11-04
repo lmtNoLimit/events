@@ -12,7 +12,7 @@ class registrations extends Model
     // lien ket toi attendees
     public function attendee()
     {
-    	return $this->belongsTo('app\attendees')
+    	return $this->belongsTo('app\attendees');
     }
 
     // lien ket toi session_registrations
