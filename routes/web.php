@@ -20,7 +20,11 @@ Route::get('/testDB', function(){
 	echo $data;
 });
 
-
 Route::get('/login',function(){
 	return view('login');
+});
+
+Route::get('/events', function() {
+    $events = DB::table('events')->get();
+    return view('events/index', ['events' => $events]);
 });

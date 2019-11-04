@@ -10,9 +10,9 @@
 
     <!-- <base href="{{asset('./')}}"> -->
     <!-- Bootstrap core CSS -->
-    <link href="{{asset('resources/custom_css/bootstrap.css')}}" rel="stylesheet">
+    <link href="{{ asset('css/bootstrap.css' )}}" rel="stylesheet">
+    <link href="{{ asset('css/custom.css' )}}" rel="stylesheet">
     <!-- Custom styles -->
-    <link href="{{asset('resources/custom_css/custom.css')}}" rel="stylesheet">
 </head>
 
 <body>
