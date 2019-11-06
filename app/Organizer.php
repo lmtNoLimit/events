@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Event;
 
 class Organizer extends Model
 {
@@ -13,6 +14,6 @@ class Organizer extends Model
     // lien ket toi events
     public function events()
     {
-    	return $this->hasMany('app\events','organizer_id','id');
+    	return $this->hasMany(Event::class);
     }
 }

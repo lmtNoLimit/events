@@ -8,6 +8,7 @@ use App\Http\Requests;
 use Validator;
 use Auth;
 use Illuminate\Support\MessageBag;
+use Hash;
 
 class LoginController extends Controller
 {
@@ -30,7 +31,7 @@ class LoginController extends Controller
     		return redirect()->back()->withErrors($validator)->withInput();
     	} else {
     		$email = $request->input('email');
-    		$password = $request->input('password');
+    		$password = Hash::make($request->input('password'));
 
     		if( Auth::attempt(['email' => $email, 'password_hash' => $password])) {
     			return redirect('/events');

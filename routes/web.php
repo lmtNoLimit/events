@@ -25,3 +25,5 @@ Route::post('/login', 'LoginController@postLogin');
 
 Route::get('/events', 'EventController@getEvents');
 Route::get('/events/create', 'EventController@getCreateEvent');
+Route::post('/events/create', 'EventController@postCreateEvent');
+Route::get('/events/{id}', 'EventController@getEventDetail');

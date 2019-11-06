@@ -47,8 +47,8 @@
                 </div>
             </div>
 
-            <form class="needs-validation" novalidate action="events/detail.html">
-
+            <form method="POST" class="needs-validation" novalidate>
+                {{ csrf_field() }}
                 <div class="row">
                     <div class="col-12 col-lg-4 mb-3">
                         <label for="inputName">Name</label>

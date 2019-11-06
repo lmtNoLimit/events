@@ -3,16 +3,17 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Organizer;
 
-class events extends Model
+class Event extends Model
 {
     //
     protected $table = "events";
-
+    public $timestamps = false;
     // lien ket toi organuzer
     public function organizer()
     {
-    	return $this->belongsto('app\organizers');
+    	return $this->belongsto(Organizer::class);
     }
 
     // lien ket toi tickets
