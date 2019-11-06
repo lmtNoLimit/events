@@ -53,9 +53,9 @@
                     <div class="col-12 col-lg-4 mb-3">
                         <label for="inputName">Name</label>
                         <!-- adding the class is-invalid to the input, shows the invalid feedback below -->
-                        <input type="text" class="form-control is-invalid" id="inputName" name="name" placeholder="" value="">
+                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="inputName" name="name" placeholder="" value="">
                         <div class="invalid-feedback">
-                            Name is required.
+                            {{$errors->first('name')}}
                         </div>
                     </div>
                 </div>
@@ -63,7 +63,10 @@
                 <div class="row">
                     <div class="col-12 col-lg-4 mb-3">
                         <label for="inputSlug">Slug</label>
-                        <input type="text" class="form-control" id="inputSlug" name="slug" placeholder="" value="">
+                        <input type="text" class="form-control @error('slug') is-invalid @enderror" id="inputSlug" name="slug" placeholder="" value="">
+                        <div class="invalid-feedback">
+                            {{$errors->first('slug')}}
+                        </div>
                     </div>
                 </div>
 
@@ -71,11 +74,14 @@
                     <div class="col-12 col-lg-4 mb-3">
                         <label for="inputDate">Date</label>
                         <input type="text"
-                               class="form-control"
+                               class="form-control @error('date') is-invalid @enderror"
                                id="inputDate"
                                name="date"
                                placeholder="yyyy-mm-dd"
                                value="">
+                        <div class="invalid-feedback">
+                            {{$errors->first('date')}}
+                        </div>
                     </div>
                 </div>
 

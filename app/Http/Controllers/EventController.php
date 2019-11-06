@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use DB;
 use App\Event;
 use Redirect;
+use Validator;
+use Auth;
+use Illuminate\Support\MessageBag;
 
 class EventController extends Controller
 {
@@ -19,13 +22,33 @@ class EventController extends Controller
     }
 
     public function postCreateEvent(Request $request) {
-        $event = new Event;
-        $event->organizer_id = 2;
-        $event->name = $request->input('name');
-        $event->slug = $request->input('slug');
-        $event->date = $request->input('date');
-        $event->save();
-        return redirect('/events');
+        $rules = [
+    		'name' =>'required',
+            'slug' => 'required|unique:events|regex:/^[a-z0-9-]+$/i',
+            'date' => 'required'
+    	];
+    	$messages = [
+    		'name.required' => 'Name is required.',
+    		'slug.required' => 'Slug is required.',
+    		'slug.unique' => 'Slug is already used.',
+    		'slug.regex' => "Slug must not be empty and only contain a-z, 0-9 and 
+            '-'",
+    		'date.required' => 'Date is required.',
+    	];
+        $validator = Validator::make($request->all(), $rules, $messages);
+        
+        if ($validator->fails()) {
+    		return redirect()->back()->withErrors($validator)->withInput();
+    	} else {
+            $event = new Event;
+            $event->organizer_id = 2;
+            $event->name = $request->input('name');
+            $event->slug = $request->input('slug');
+            $event->date = $request->input('date');
+            $event->save();
+            $id = $event['id'];
+            return redirect("/events/$id");
+        }
     }
 
     public function getEventDetail($id) {

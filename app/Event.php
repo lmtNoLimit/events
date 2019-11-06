@@ -10,7 +10,7 @@ class Event extends Model
     //
     protected $table = "events";
     public $timestamps = false;
-    // lien ket toi organuzer
+    
     public function organizer()
     {
     	return $this->belongsto(Organizer::class);
