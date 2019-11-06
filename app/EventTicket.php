@@ -3,15 +3,15 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Event;
 
-class event_tickets extends Model
+class EventTicket extends Model
 {
-    //
     protected $table = "event_tickets";
 
     // lien ket toi events
     public function event()
     {
-    	return $this->belongsTo('app\events');
+    	return $this->belongsTo(Event::class);
     }
 }

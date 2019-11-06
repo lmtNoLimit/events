@@ -3,17 +3,16 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Event;
 
-class channels extends Model
+class Channel extends Model
 {
-    //
     protected $table = "channels";
     // lien ket toi event
     public function event()
     {
-    	return $this->belongsTo('app\events');
+    	return $this->belongsTo(Event::class);
     }
-
     // lien ket toi room
     public function rooms()
     {

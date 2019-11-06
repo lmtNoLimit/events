@@ -7,7 +7,6 @@ use App\Event;
 
 class Organizer extends Model
 {
-    //
     protected $table = "organizers";
     public $timestamps = false;
 

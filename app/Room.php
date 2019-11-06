@@ -3,16 +3,16 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Channel;
 
-class rooms extends Model
+class Room extends Model
 {
-    //
     protected $table = "rooms";
 
     // lien ket toi channel
     public function channel()
     {
-    	return $this->belongsTo('app\channels');
+    	return $this->belongsTo(Channel::class);
     }
 
     // lien ket toi sessions

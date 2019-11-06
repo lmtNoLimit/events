@@ -68,7 +68,7 @@
                     <h2 class="h4">Tickets</h2>
                     <div class="btn-toolbar mb-2 mb-md-0">
                         <div class="btn-group mr-2">
-                            <a href="tickets/create.html" class="btn btn-sm btn-outline-secondary">
+                            <a href="{{ url('/events/'.$event->id.'/tickets/create')}}" class="btn btn-sm btn-outline-secondary">
                                 Create new ticket
                             </a>
                         </div>

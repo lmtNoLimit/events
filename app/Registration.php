@@ -3,16 +3,16 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Attendee;
 
-class registrations extends Model
+class Registration extends Model
 {
-    //
     protected $table = "registrations";
 
     // lien ket toi attendees
     public function attendee()
     {
-    	return $this->belongsTo('app\attendees');
+    	return $this->belongsTo(Attendee::class);
     }
 
     // lien ket toi session_registrations

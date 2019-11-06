@@ -7,10 +7,9 @@ use App\Organizer;
 
 class Event extends Model
 {
-    //
     protected $table = "events";
     public $timestamps = false;
-    
+
     public function organizer()
     {
     	return $this->belongsto(Organizer::class);

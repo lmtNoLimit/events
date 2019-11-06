@@ -56,4 +56,9 @@ class EventController extends Controller
         $tickets = DB::table('event_tickets')->where('event_id', $id)->get();
         return view('events/detail', ['event' => $event, 'tickets' => $tickets]);
     }
+
+    public function getCreateTicket($id) {
+        $event = DB::table('events')->where('id', $id)->first();
+        return view("tickets/create", ['event' => $event]);
+    }
 }

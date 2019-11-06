@@ -3,15 +3,16 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Room;
 
-class sessions extends Model
+class Session extends Model
 {
     //
     protected $table = "sessions";
     // lien ket toi rooms
     public function room()
     {
-    	return $this->belongsTo('app\rooms');
+    	return $this->belongsTo(Room::class);
     }
 
     // lien ket toi session_registration

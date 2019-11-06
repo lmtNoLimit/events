@@ -87,7 +87,7 @@
 
                 <hr class="mb-4">
                 <button class="btn btn-primary" type="submit">Save event</button>
-                <a href="events/index.html" class="btn btn-link">Cancel</a>
+                <a href="/events" class="btn btn-link">Cancel</a>
             </form>
 
         </main>
