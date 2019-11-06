@@ -20,19 +20,8 @@ Route::get('/testDB', function(){
 	echo $data;
 });
 
-Route::get('/login',function(){
-	return view('login');
-});
+Route::get('/login', 'LoginController@getLogin');
+Route::post('/login', 'LoginController@postLogin');
 
-Route::post('/login', function(){
-
-});
-
-Route::get('/events', function() {
-    $events = DB::table('events')->get();
-    return view('events/index', ['events' => $events]);
-});
-
-Route::get('/events/create', function() {
-    return view('events/create');
-});
+Route::get('/events', 'EventController@getEvents');
+Route::get('/events/create', 'EventController@getCreateEvent');
