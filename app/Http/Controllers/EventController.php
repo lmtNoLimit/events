@@ -13,6 +13,11 @@ use Illuminate\Support\MessageBag;
 
 class EventController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function getEvents() {
         $events = DB::select('select * from events order by date asc');
         return view('events/index', ['events' => $events]);
@@ -73,13 +78,12 @@ class EventController extends Controller
     public function postEventEdit(Request $request, $id) {
         $rules = [
     		'name' =>'required',
-            'slug' => 'required|unique:events|regex:/^[a-z0-9-]+$/i',
+            'slug' => 'required|regex:/^[a-z0-9-]+$/i',
             'date' => 'required'
     	];
     	$messages = [
     		'name.required' => 'Name is required.',
     		'slug.required' => 'Slug is required.',
-    		'slug.unique' => 'Slug is already used.',
     		'slug.regex' => "Slug must not be empty and only contain a-z, 0-9 and 
             '-'",
     		'date.required' => 'Date is required.',
@@ -98,7 +102,8 @@ class EventController extends Controller
                     'slug' => $slug,
                     'date' => $date,
                 ]);
-            return redirect("/events/$id");
+            $request->session()->flash('message', 'Event created successfully');
+            return redirect("/events/$id")->with('message', "Event created successfully");
         }
     }
 

@@ -71,10 +71,10 @@ return [
             'model' => App\Organizer::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'users' => [
+            'driver' => 'database',
+            'table' => 'organizers',
+        ],
     ],
 
     /*

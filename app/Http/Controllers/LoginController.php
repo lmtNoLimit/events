@@ -9,12 +9,14 @@ use Validator;
 use Auth;
 use Illuminate\Support\MessageBag;
 use Hash;
+use App\Organizer;
 
 class LoginController extends Controller
 {
     public function getLogin() {
         return view('login');
     }
+
     public function postLogin(Request $request) {
         $rules = [
     		'email' =>'required|email',
@@ -30,10 +32,10 @@ class LoginController extends Controller
     	if ($validator->fails()) {
     		return redirect()->back()->withErrors($validator)->withInput();
     	} else {
-    		$email = $request->input('email');
-    		$password = Hash::make($request->input('password'));
-
-    		if( Auth::attempt(['email' => $email, 'password_hash' => $password])) {
+            // $organizer = Organizer::where('email', $email)->first();
+            $email = $request->input('email');
+    		$password = $request->input('password');
+    		if( Auth::attempt(['email' => $email, 'password' => $password])) {
     			return redirect('/events');
     		} else {
     			$errors = new MessageBag(['errorlogin' => 'Email or password not correct']);

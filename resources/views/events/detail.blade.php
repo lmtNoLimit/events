@@ -26,6 +26,11 @@
 </nav>
 
 <div class="container-fluid">
+    @if(session('message'))
+        <div class="alert alert-success">
+            {{ session('message') }}
+        </div>
+    @endif
     <div class="row">
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
             <div class="sidebar-sticky">
@@ -85,9 +90,7 @@
                             <p class="card-text">{{$data->cost}}</p>
                             <p class="card-text">
                                 {{
-                                    $data->special_validity === NULL
-                                        ? ""
-                                        : $data->special_validity
+                                    $data->special_validity
                                 }}
                             </p>
                         </div>
