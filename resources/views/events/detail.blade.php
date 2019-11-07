@@ -55,7 +55,7 @@
                     <h1 class="h2">{{$event->name}}</h1>
                     <div class="btn-toolbar mb-2 mb-md-0">
                         <div class="btn-group mr-2">
-                            <a href="events/edit.html" class="btn btn-sm btn-outline-secondary">Edit event</a>
+                            <a href="{{ url('events/'. $event->id . '/edit') }}" class="btn btn-sm btn-outline-secondary">Edit event</a>
                         </div>
                     </div>
                 </div>
@@ -83,7 +83,13 @@
                         <div class="card-body">
                             <h5 class="card-title">{{$data->name}}</h5>
                             <p class="card-text">{{$data->cost}}</p>
-                            <p class="card-text">{{$data->special_validity}}</p>
+                            <p class="card-text">
+                                {{
+                                    $data->special_validity === NULL
+                                        ? ""
+                                        : $data->special_validity
+                                }}
+                            </p>
                         </div>
                     </div>
                 </div>

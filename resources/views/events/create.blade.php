@@ -53,7 +53,12 @@
                     <div class="col-12 col-lg-4 mb-3">
                         <label for="inputName">Name</label>
                         <!-- adding the class is-invalid to the input, shows the invalid feedback below -->
-                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="inputName" name="name" placeholder="" value="">
+                        <input type="text" 
+                                class="form-control @error('name') is-invalid @enderror" 
+                                id="inputName" 
+                                name="name" 
+                                placeholder="" 
+                                value="{{ old('name') }}">
                         <div class="invalid-feedback">
                             {{$errors->first('name')}}
                         </div>
@@ -63,7 +68,12 @@
                 <div class="row">
                     <div class="col-12 col-lg-4 mb-3">
                         <label for="inputSlug">Slug</label>
-                        <input type="text" class="form-control @error('slug') is-invalid @enderror" id="inputSlug" name="slug" placeholder="" value="">
+                        <input type="text" 
+                                class="form-control @error('slug') is-invalid @enderror" 
+                                id="inputSlug" 
+                                name="slug" 
+                                placeholder="" 
+                                value="{{ old('slug') }}">
                         <div class="invalid-feedback">
                             {{$errors->first('slug')}}
                         </div>
@@ -78,7 +88,7 @@
                                id="inputDate"
                                name="date"
                                placeholder="yyyy-mm-dd"
-                               value="">
+                               value="{{ old('date') }}">
                         <div class="invalid-feedback">
                             {{$errors->first('date')}}
                         </div>

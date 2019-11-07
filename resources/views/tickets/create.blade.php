@@ -64,14 +64,19 @@
             </div>
 
             <form method="POST" class="needs-validation" novalidate>
-
+                {{ csrf_field() }}
                 <div class="row">
                     <div class="col-12 col-lg-4 mb-3">
                         <label for="inputName">Name</label>
                         <!-- adding the class is-invalid to the input, shows the invalid feedback below -->
-                        <input type="text" class="form-control is-invalid" id="inputName" name="name" placeholder="" value="">
+                        <input type="text" 
+                                class="form-control @error('name') is-invalid @enderror" 
+                                id="inputName" 
+                                name="name" 
+                                placeholder="" 
+                                value="">
                         <div class="invalid-feedback">
-                            Name is required.
+                            {{$errors->first('name')}}
                         </div>
                     </div>
                 </div>
@@ -79,14 +84,25 @@
                 <div class="row">
                     <div class="col-12 col-lg-4 mb-3">
                         <label for="inputCost">Cost</label>
-                        <input type="number" class="form-control" id="inputCost" name="cost" placeholder="" value="0">
+                        <input type="number" 
+                                class="form-control @error('cost') is-invalid @enderror" 
+                                id="inputCost" 
+                                name="cost" 
+                                placeholder="" 
+                                value="0">
+                        <div class="invalid-feedback">
+                            {{$errors->first('cost')}}
+                        </div>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-12 col-lg-4 mb-3">
                         <label for="selectSpecialValidity">Special Validity</label>
-                        <select class="form-control" id="selectSpecialValidity" name="special_validity">
+                        <select 
+                            class="form-control" 
+                            id="selectSpecialValidity" 
+                            name="special_validity">
                             <option value="" selected>None</option>
                             <option value="amount">Limited amount</option>
                             <option value="date">Purchaseable till date</option>
@@ -97,7 +113,15 @@
                 <div class="row">
                     <div class="col-12 col-lg-4 mb-3">
                         <label for="inputAmount">Maximum amount of tickets to be sold</label>
-                        <input type="number" class="form-control" id="inputAmount" name="amount" placeholder="" value="0">
+                        <input type="number" 
+                                class="form-control @error('special_validity.amount') is-invalid @enderror" 
+                                id="inputAmount" 
+                                name="amount" 
+                                placeholder=""
+                                value="0">
+                        <div class="invalid-feedback">
+                            {{$errors->first('special_validity.amount')}}
+                        </div>
                     </div>
                 </div>
 
@@ -105,17 +129,20 @@
                     <div class="col-12 col-lg-4 mb-3">
                         <label for="inputValidTill">Tickets can be sold until</label>
                         <input type="text"
-                               class="form-control"
+                               class="form-control @error('special_validity.valid_until') is-invalid @enderror"
                                id="inputValidTill"
                                name="valid_until"
                                placeholder="yyyy-mm-dd HH:MM"
                                value="">
+                        <div class="invalid-feedback">
+                            {{$errors->first('special_validity.valid_until')}}
+                        </div>
                     </div>
                 </div>
 
                 <hr class="mb-4">
                 <button class="btn btn-primary" type="submit">Save ticket</button>
-                <a href="events/detail.html" class="btn btn-link">Cancel</a>
+                <a href="{{ url('events/'.$event->id) }}" class="btn btn-link">Cancel</a>
             </form>
 
         </main>

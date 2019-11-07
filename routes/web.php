@@ -29,4 +29,7 @@ Route::get('/events', 'EventController@getEvents');
 Route::get('/events/create', 'EventController@getCreateEvent');
 Route::post('/events/create', 'EventController@postCreateEvent');
 Route::get('/events/{id}', 'EventController@getEventDetail');
+Route::get('/events/{id}/edit', 'EventController@getEventEdit');
+Route::post('/events/{id}/edit', 'EventController@postEventEdit');
 Route::get('/events/{id}/tickets/create', 'EventController@getCreateTicket');
+Route::post('/events/{id}/tickets/create','EventController@postCreateTicket');
