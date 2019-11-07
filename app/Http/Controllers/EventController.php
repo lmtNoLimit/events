@@ -21,10 +21,12 @@ class EventController extends Controller
 
 
     public function getEvents(Request $request) {
-        $events = DB::select('select * from events order by date asc');
+        $user = Auth::user();
+        $organizerId = $user->id;
+        $events = DB::select("select * from events where organizer_id = '$organizerId' order by date asc");
         return view('events/index', [
             'events' => $events,
-            'user' => Auth::user()
+            'user' => $user
         ]);
     }
     
@@ -33,6 +35,7 @@ class EventController extends Controller
     }
 
     public function postCreateEvent(Request $request) {
+        $user = Auth::user();
         $rules = [
     		'name' =>'required',
             'slug' => 'required|unique:events|regex:/^[a-z0-9-]+$/i',
@@ -52,7 +55,7 @@ class EventController extends Controller
     		return redirect()->back()->withErrors($validator)->withInput();
     	} else {
             $event = new Event;
-            $event->organizer_id = 2;
+            $event->organizer_id = $user->id;
             $event->name = $request->input('name');
             $event->slug = $request->input('slug');
             $event->date = $request->input('date');
@@ -63,7 +66,11 @@ class EventController extends Controller
     }
 
     public function getEventDetail($id) {
-        $event = DB::table('events')->where('id', $id)->first();
+        $user = Auth::user();
+        $event = DB::table('events')
+            ->where('organizer_id', $user->id)
+            ->where('id', $id)
+            ->first();
         $tickets = DB::select("select * from event_tickets where event_id = '$id'");
         
         return view('events/detail', [
@@ -74,10 +81,13 @@ class EventController extends Controller
     }
 
     public function getEventEdit($id) {
-        $event = DB::table('events')->where('id', $id)->first();
+        $user = Auth::user();
+        $event = DB::table('events')
+            ->where('organizer_id', $user->id)
+            ->where('id', $id)->first();
         return view('events/edit', [
             'event' => $event,
-            'user' => Auth::user()
+            'user' => $user
         ]);
     }
 
@@ -114,10 +124,13 @@ class EventController extends Controller
     }
 
     public function getCreateTicket($id) {
-        $event = DB::table('events')->where('id', $id)->first();
+        $user = Auth::user();
+        $event = DB::table('events')
+            ->where('organizer_id', $user->id)
+            ->where('id', $id)->first();
         return view("tickets/create", [
             'event' => $event, 
-            'user' => Auth::user()
+            'user' => $user
         ]);
     }
 

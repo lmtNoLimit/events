@@ -33,7 +33,6 @@ class LoginController extends Controller
     	if ($validator->fails()) {
     		return redirect()->back()->withErrors($validator)->withInput();
     	} else {
-            // $organizer = Organizer::where('email', $email)->first();
             $email = $request->input('email');
     		$password = $request->input('password');
     		if( Auth::attempt(['email' => $email, 'password' => $password])) {
