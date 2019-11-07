@@ -13,6 +13,7 @@ use App\Organizer;
 
 class LoginController extends Controller
 {
+
     public function getLogin() {
         return view('login');
     }
@@ -42,5 +43,9 @@ class LoginController extends Controller
     			return redirect()->back()->withInput()->withErrors($errors);
     		}
     	}
+    }
+    public function logout() {
+        Auth::logout();
+        return redirect('/login');
     }
 }

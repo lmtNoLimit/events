@@ -8,8 +8,9 @@ use App\Event;
 use App\EventTicket;
 use Redirect;
 use Validator;
-use Auth;
+// use Auth;
 use Illuminate\Support\MessageBag;
+use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {
@@ -18,13 +19,17 @@ class EventController extends Controller
         $this->middleware('auth');
     }
 
-    public function getEvents() {
+
+    public function getEvents(Request $request) {
         $events = DB::select('select * from events order by date asc');
-        return view('events/index', ['events' => $events]);
+        return view('events/index', [
+            'events' => $events,
+            'user' => Auth::user()
+        ]);
     }
     
     public function getCreateEvent() {
-        return view('events/create');
+        return view('events/create', ['user' => Auth::user()]);
     }
 
     public function postCreateEvent(Request $request) {
@@ -59,12 +64,12 @@ class EventController extends Controller
 
     public function getEventDetail($id) {
         $event = DB::table('events')->where('id', $id)->first();
-        // $tickets = DB::table('event_tickets')->where('event_id', $id)->get();
         $tickets = DB::select("select * from event_tickets where event_id = '$id'");
         
         return view('events/detail', [
             'event' => $event, 
-            'tickets' => $tickets
+            'tickets' => $tickets,
+            'user' => Auth::user()
         ]);
     }
 
@@ -72,6 +77,7 @@ class EventController extends Controller
         $event = DB::table('events')->where('id', $id)->first();
         return view('events/edit', [
             'event' => $event,
+            'user' => Auth::user()
         ]);
     }
 
@@ -109,7 +115,10 @@ class EventController extends Controller
 
     public function getCreateTicket($id) {
         $event = DB::table('events')->where('id', $id)->first();
-        return view("tickets/create", ['event' => $event]);
+        return view("tickets/create", [
+            'event' => $event, 
+            'user' => Auth::user()
+        ]);
     }
 
     public function postCreateTicket(Request $request, $id) {

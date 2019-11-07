@@ -40,7 +40,6 @@ return [
             'driver' => 'session',
             'provider' => 'organizers',
         ],
-
         'api' => [
             'driver' => 'token',
             'provider' => 'organizers',

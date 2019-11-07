@@ -21,11 +21,11 @@ Route::get('/testDB', function(){
 });
 
 // auth route
-Route::get('/login', 'LoginController@getLogin');
+Route::get('/login', 'LoginController@getLogin')->name('login');
 Route::post('/login', 'LoginController@postLogin');
-
+Route::get('/logout', 'LoginController@logout');
 // event route
-Route::get('/events', 'EventController@getEvents');
+Route::get('/events', 'EventController@getEvents')->middleware('auth');
 Route::get('/events/create', 'EventController@getCreateEvent');
 Route::post('/events/create', 'EventController@postCreateEvent');
 Route::get('/events/{id}', 'EventController@getEventDetail');

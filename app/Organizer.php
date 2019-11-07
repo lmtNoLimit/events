@@ -10,12 +10,10 @@ class Organizer extends Authenticatable
 {
     protected $table = "organizers";
     protected $guarded = ['id'];
-    protected $hidden = [
-     'password_hash',
-    ];
+    protected $hidden = ['password_hash'];
 
     public function getAuthPassword() {
-     return $this->password_hash;
+        return $this->password_hash;
     }
 
     public $timestamps = false;
