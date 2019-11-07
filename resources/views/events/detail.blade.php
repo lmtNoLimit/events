@@ -80,8 +80,13 @@
                             <h5 class="card-title">{{$data->name}}</h5>
                             <p class="card-text">{{$data->cost}}</p>
                             <p class="card-text">
+                            <?php $special_validity = json_decode($data->special_validity,TRUE); ?>
                                 {{
-                                    $data->special_validity
+                                    $special_validity == ''
+                                        ? ''
+                                        : $special_validity['type'] == "date" 
+                                            ? "Available ultil ".date('F j, Y', strtotime($special_validity['date']))
+                                            : $special_validity['amount']." tickets available"
                                 }}
                             </p>
                         </div>
