@@ -17,11 +17,6 @@
 <body>
 @include('partials.navbar')
 <div class="container-fluid">
-    @if(session('message'))
-        <div class="alert alert-success">
-            {{ session('message') }}
-        </div>
-    @endif
     <div class="row">
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
             <div class="sidebar-sticky">
@@ -44,8 +39,8 @@
                 </ul>
             </div>
         </nav>
-
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+            @include('partials.flash_message')
             <div class="border-bottom mb-3 pt-3 pb-2 event-title">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
                     <h1 class="h2">{{$event->name}}</h1>
@@ -132,24 +127,10 @@
                         <td><a href="sessions/edit.html">{{$data->title}}</a></td>
                         <td class="text-nowrap">{{$data->speaker}}</td>
                         <td class="text-nowrap">
-                            {{$data->channel_name .' / '.$data->room_name}}
+                            {{"$data->channel_name / $data->room_name"}}
                         <td>
                     </tr>
                     @endforeach
-                    <!-- <tr>
-                        <td class="text-nowrap">10:15 - 11:00</td>
-                        <td>Talk</td>
-                        <td><a href="sessions/edit.html">What's new in X?</a></td>
-                        <td class="text-nowrap">Another person</td>
-                        <td class="text-nowrap">Main / Room A</td>
-                    </tr>
-                    <tr>
-                        <td class="text-nowrap">10:15 - 11:00</td>
-                        <td>Workshop</td>
-                        <td><a href="sessions/edit.html">Hands-on with Y</a></td>
-                        <td class="text-nowrap">Another person</td>
-                        <td class="text-nowrap">Side / Room C</td>
-                    </tr> -->
                     </tbody>
                 </table>
             </div>
@@ -160,7 +141,7 @@
                     <h2 class="h4">Channels</h2>
                     <div class="btn-toolbar mb-2 mb-md-0">
                         <div class="btn-group mr-2">
-                            <a href="channels/create.html" class="btn btn-sm btn-outline-secondary">
+                            <a href="{{url('/events/'.$event->id.'/channels/create')}}" class="btn btn-sm btn-outline-secondary">
                                 Create new channel
                             </a>
                         </div>
@@ -174,7 +155,9 @@
                     <div class="card mb-4 shadow-sm">
                         <div class="card-body">
                             <h5 class="card-title">{{$data->name}}</h5>
-                            <p class="card-text">3 sessions, 1 room</p>
+                            <p class="card-text">1 Session, 2 Rooms
+                                <!-- "$data->session_count sessions, $data->room_count rooms" -->
+                            </p>
                         </div>
                     </div>
                 </div>

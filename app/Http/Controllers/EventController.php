@@ -59,7 +59,7 @@ class EventController extends Controller
             $event->date = $request->input('date');
             $event->save();
             $id = $event['id'];
-            return redirect("/events/$id");
+            return redirect("/events/$id")->with("success", "Event successfully created");
         }
     }
 
@@ -70,7 +70,9 @@ class EventController extends Controller
             ->where('id', $id)
             ->first();
         $tickets = DB::select("select * from event_tickets where event_id = '$id'");
-        $channels = DB::select("select * from channels where event_id = '$id'");
+        $channels = DB::table("channels")
+            ->where("event_id", "$id")
+            ->get();
         $rooms = DB::table("rooms")
             ->join("channels", "rooms.channel_id", "=", "channels.id")
             ->select("rooms.*")
@@ -131,8 +133,7 @@ class EventController extends Controller
                     'slug' => $slug,
                     'date' => $date,
                 ]);
-            $request->session()->flash('message', 'Event created successfully');
-            return redirect("/events/$id")->with('message', "Event created successfully");
+            return redirect("/events/$id")->with("success", "Event successfully updated");
         }
     }
 

@@ -58,7 +58,7 @@ class TicketController extends Controller
             $ticket->special_validity = $special_validity == '' ? NULL : json_encode($special_validity);
             $ticket->save();
             // $id = $event['id'];
-            return redirect("/events/$id");
+            return redirect("/events/$id")->with("success", "Ticket successfully created");
         }
     }
 }

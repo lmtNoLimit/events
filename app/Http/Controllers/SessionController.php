@@ -12,6 +12,7 @@ class SessionController extends Controller
 {
     public function getCreateSession() {
         $user = Auth::user();
+        // $
         return view('sessions/create', ['user' => $user]);
     }
 }
