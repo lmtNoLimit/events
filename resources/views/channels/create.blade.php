@@ -75,7 +75,7 @@
 
                 <hr class="mb-4">
                 <button class="btn btn-primary" type="submit">Save channel</button>
-                <a href="{{ url('/events/'.$event->id.'/detail') }}" class="btn btn-link">Cancel</a>
+                <a href="{{ url('/events/'.$event->id) }}" class="btn btn-link">Cancel</a>
             </form>
 
         </main>

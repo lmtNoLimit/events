@@ -9,7 +9,8 @@ class Session extends Model
 {
     //
     protected $table = "sessions";
-    // lien ket toi rooms
+    public $timestamps = false;
+    
     public function room()
     {
     	return $this->belongsTo(Room::class);
