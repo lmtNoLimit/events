@@ -45,7 +45,7 @@
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
                     <h1 class="h2">{{$event->name}}</h1>
                 </div>
-                <span class="h6">{{$event->date}}</span>
+                <span class="h6">{{date("F j, Y", strtotime($event->date))}}</span>
             </div>
 
             <div class="mb-3 pt-3 pb-2">

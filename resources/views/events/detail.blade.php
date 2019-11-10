@@ -50,7 +50,7 @@
                         </div>
                     </div>
                 </div>
-                <span class="h6">{{$event->date}}</span>
+                <span class="h6">{{date("F j, Y", strtotime($event->date))}}</span>
             </div>
 
             <!-- Tickets -->
