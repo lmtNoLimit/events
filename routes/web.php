@@ -40,7 +40,9 @@ Route::get('/events/{id}/channels/create', 'ChannelController@getCreateChannel')
 Route::post('/events/{id}/channels', 'ChannelController@postCreateChannel');
 
 Route::get('/events/{id}/rooms/create', 'RoomController@getCreateRoom');
-Route::get('/events/{id}/rooms', 'RoomController@postCreateRoom');
+Route::post('/events/{id}/rooms', 'RoomController@postCreateRoom');
 
 Route::get('/events/{id}/sessions/create', 'SessionController@getCreateSession');
 Route::post('/events/{id}/sessions', 'SessionController@postCreateSession');
+Route::get('/events/{eventId}/sessions/{sessionId}', 'SessionController@getEditSession');
+Route::post('/events/{eventId}/sessions/{sessionId}', 'SessionController@postEditSession');

@@ -124,7 +124,7 @@
                             {{date("H:i", strtotime($data->start)).' - '.date("H:i", strtotime($data->end))}}
                         </td>
                         <td>{{ucfirst($data->type)}}</td>
-                        <td><a href="sessions/edit.html">{{$data->title}}</a></td>
+                        <td><a href="{{ url('/events/'.$event->id.'/sessions/'.$data->id).'/edit' }}">{{$data->title}}</a></td>
                         <td class="text-nowrap">{{$data->speaker}}</td>
                         <td class="text-nowrap">
                             {{"$data->channel_name / $data->room_name"}}
@@ -170,7 +170,7 @@
                     <h2 class="h4">Rooms</h2>
                     <div class="btn-toolbar mb-2 mb-md-0">
                         <div class="btn-group mr-2">
-                            <a href="rooms/create.html" class="btn btn-sm btn-outline-secondary">
+                            <a href="{{ url('/events/'.$event->id.'/rooms/create') }}" class="btn btn-sm btn-outline-secondary">
                                 Create new room
                             </a>
                         </div>

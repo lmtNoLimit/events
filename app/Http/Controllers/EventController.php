@@ -8,7 +8,6 @@ use App\Event;
 use App\EventTicket;
 use Redirect;
 use Validator;
-use Illuminate\Support\MessageBag;
 use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller

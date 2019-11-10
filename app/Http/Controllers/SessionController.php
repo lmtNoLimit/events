@@ -15,4 +15,33 @@ class SessionController extends Controller
         // $
         return view('sessions/create', ['user' => $user]);
     }
+
+    public function postCreateSession(Request $request, $id) {
+        $rules = [];
+        $messages = [];
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        else {
+            //TODO create session
+        }
+    }
+
+    public function getEditSession() {
+        $user = Auth::user();
+        return view('sessions/edit', ['user' => $user]);
+    }
+
+    public function postEditSession(Request $request, $eventId, $sessionId) {
+        $rules = [];
+        $messages = [];
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        else {
+            // TODO Edit Session
+        }
+    }
 }

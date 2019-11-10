@@ -8,7 +8,7 @@ use App\Channel;
 class Room extends Model
 {
     protected $table = "rooms";
-
+    public $timestamps = false;
     // lien ket toi channel
     public function channel()
     {
