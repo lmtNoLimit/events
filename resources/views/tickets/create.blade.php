@@ -54,7 +54,7 @@
                 </div>
             </div>
 
-            <form method="POST" class="needs-validation" novalidate>
+            <form action="{{url('/events/'.$event->id.'/tickets')}}" method="POST" class="needs-validation" novalidate>
                 {{ csrf_field() }}
                 <div class="row">
                     <div class="col-12 col-lg-4 mb-3">
@@ -65,7 +65,7 @@
                                 id="inputName" 
                                 name="name" 
                                 placeholder="" 
-                                value="">
+                                value="{{old('name')}}">
                         <div class="invalid-feedback">
                             {{$errors->first('name')}}
                         </div>
@@ -80,7 +80,7 @@
                                 id="inputCost" 
                                 name="cost" 
                                 placeholder="" 
-                                value="0">
+                                value="{{old('cost') != 0 ? old('cost') : 0}}">
                         <div class="invalid-feedback">
                             {{$errors->first('cost')}}
                         </div>
@@ -90,7 +90,7 @@
                 <div class="row">
                     <div class="col-12 col-lg-4 mb-3">
                         <label for="selectSpecialValidity">Special Validity</label>
-                        <select 
+                        <select
                             class="form-control" 
                             id="selectSpecialValidity" 
                             name="special_validity">
@@ -109,7 +109,7 @@
                                 id="inputAmount" 
                                 name="amount" 
                                 placeholder=""
-                                value="0">
+                                value="{{old('amount') != 0 ? old('amount') : 0}}">
                         <div class="invalid-feedback">
                             {{$errors->first('amount')}}
                         </div>
@@ -124,7 +124,7 @@
                                id="inputValidTill"
                                name="date"
                                placeholder="yyyy-mm-dd HH:MM"
-                               value="">
+                               value="{{old('date')}}">
                         <div class="invalid-feedback">
                             {{$errors->first('date')}}
                         </div>

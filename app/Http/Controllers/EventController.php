@@ -70,11 +70,26 @@ class EventController extends Controller
             ->where('id', $id)
             ->first();
         $tickets = DB::select("select * from event_tickets where event_id = '$id'");
-        
+        $channels = DB::select("select * from channels where event_id = '$id'");
+        $rooms = DB::table("rooms")
+            ->join("channels", "rooms.channel_id", "=", "channels.id")
+            ->select("rooms.*")
+            ->where("event_id", "$id")
+            ->get();
+        $sessions = DB::table("sessions")
+            ->join("rooms", "sessions.room_id", "=", "rooms.id")
+            ->join("channels","rooms.channel_id", "=", "channels.id")
+            ->where("event_id", "$id")
+            ->select("sessions.*", "rooms.name as room_name", "channels.name as channel_name")
+            ->get();
+
         return view('events/detail', [
             'event' => $event, 
             'tickets' => $tickets,
-            'user' => Auth::user()
+            'sessions' => $sessions,
+            'channels' => $channels,
+            'rooms' => $rooms,
+            'user' => $user
         ]);
     }
 

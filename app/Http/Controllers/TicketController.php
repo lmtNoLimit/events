@@ -17,7 +17,7 @@ class TicketController extends Controller
             ->where('organizer_id', $user->id)
             ->where('id', $id)->first();
         return view("tickets/create", [
-            'event' => $event, 
+            'event' => $event,
             'user' => $user
         ]);
     }
@@ -27,15 +27,16 @@ class TicketController extends Controller
             'name' => 'required',
             'cost' => 'required',
             'special_validity' => 'nullable',
-            'amount' => "required_if:special_validity,==,'amount'",
-            'date' => "required_if:special_validity,==,'date'",
+            'amount' => "required_if:special_validity,==,amount|integer|min:1",
+            'date' => "required_if:special_validity,==,date",
         ];
 
         $messages = [
             'name.required' => "Name is required.",
             'cost.required' => "Cost is required.",
-            'amount' => "Amount is required",
-            'date' => "Valid date is required"
+            'amount.required_if' => "Amount field is required",
+            'amount.min' => "Amount of tickets must be more than or equal 1",
+            'date.required_if' => "Date field is required",
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
         if ($validator->fails()) {

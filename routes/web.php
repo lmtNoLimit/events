@@ -33,6 +33,7 @@ Route::post('/events/{id}', 'EventController@postEventEdit');
 Route::get('/events/{id}/edit', 'EventController@getEventEdit');
 
 Route::get('/events/{id}/tickets/create', 'TicketController@getCreateTicket');
-Route::post('/events/{id}/tickets/create','TicketController@postCreateTicket');
+Route::post('/events/{id}/tickets','TicketController@postCreateTicket');
 
 Route::get('/events/{id}/sessions/create', 'SessionController@getCreateSession');
+Route::post('/events/{id}/sessions', 'SessionController@postCreateSession');

@@ -123,14 +123,20 @@
                     </tr>
                     </thead>
                     <tbody>
+                    @foreach($sessions as $key => $data)
                     <tr>
-                        <td class="text-nowrap">08:30 - 10:00</td>
-                        <td>Talk</td>
-                        <td><a href="sessions/edit.html">Keynote</a></td>
-                        <td class="text-nowrap">An important person</td>
-                        <td class="text-nowrap">Main / Room A</td>
+                        <td class="text-nowrap">
+                            {{date("H:i", strtotime($data->start)).' - '.date("H:i", strtotime($data->end))}}
+                        </td>
+                        <td>{{ucfirst($data->type)}}</td>
+                        <td><a href="sessions/edit.html">{{$data->title}}</a></td>
+                        <td class="text-nowrap">{{$data->speaker}}</td>
+                        <td class="text-nowrap">
+                            {{$data->channel_name .' / '.$data->room_name}}
+                        <td>
                     </tr>
-                    <tr>
+                    @endforeach
+                    <!-- <tr>
                         <td class="text-nowrap">10:15 - 11:00</td>
                         <td>Talk</td>
                         <td><a href="sessions/edit.html">What's new in X?</a></td>
@@ -143,7 +149,7 @@
                         <td><a href="sessions/edit.html">Hands-on with Y</a></td>
                         <td class="text-nowrap">Another person</td>
                         <td class="text-nowrap">Side / Room C</td>
-                    </tr>
+                    </tr> -->
                     </tbody>
                 </table>
             </div>
@@ -163,22 +169,16 @@
             </div>
 
             <div class="row channels">
+            @foreach($channels as $key => $data)
                 <div class="col-md-4">
                     <div class="card mb-4 shadow-sm">
                         <div class="card-body">
-                            <h5 class="card-title">Main</h5>
+                            <h5 class="card-title">{{$data->name}}</h5>
                             <p class="card-text">3 sessions, 1 room</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card mb-4 shadow-sm">
-                        <div class="card-body">
-                            <h5 class="card-title">Side</h5>
-                            <p class="card-text">15 sessions, 2 rooms</p>
-                        </div>
-                    </div>
-                </div>
+            @endforeach
             </div>
 
             <!-- Rooms -->
@@ -204,22 +204,12 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>Room A</td>
-                        <td>1,000</td>
-                    </tr>
-                    <tr>
-                        <td>Room B</td>
-                        <td>100</td>
-                    </tr>
-                    <tr>
-                        <td>Room C</td>
-                        <td>100</td>
-                    </tr>
-                    <tr>
-                        <td>Room D</td>
-                        <td>250</td>
-                    </tr>
+                    @foreach($rooms as $key => $data)
+                        <tr>
+                            <td>{{$data->name}}</td>
+                            <td>{{$data->capacity}}</td>
+                        </tr>
+                    @endforeach
                     </tbody>
                 </table>
             </div>
