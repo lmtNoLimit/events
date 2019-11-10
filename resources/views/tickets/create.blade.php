@@ -15,29 +15,20 @@
 </head>
 
 <body>
-<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="events/index.html">Event Platform</a>
-    <span class="navbar-organizer w-100">{insert organization name}</span>
-    <ul class="navbar-nav px-3">
-        <li class="nav-item text-nowrap">
-            <a class="nav-link" id="logout" href="index.html">Sign out</a>
-        </li>
-    </ul>
-</nav>
-
+@include('partials.navbar')
 <div class="container-fluid">
     <div class="row">
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
             <div class="sidebar-sticky">
                 <ul class="nav flex-column">
-                    <li class="nav-item"><a class="nav-link" href="events/index.html">Manage Events</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/events">Manage Events</a></li>
                 </ul>
 
                 <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                     <span>{{$event->name}}</span>
                 </h6>
                 <ul class="nav flex-column">
-                    <li class="nav-item"><a class="nav-link" href="events/detail.html">Overview</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{url('/events/'.$event->id)}}">Overview</a></li>
                 </ul>
 
                 <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
@@ -114,13 +105,13 @@
                     <div class="col-12 col-lg-4 mb-3">
                         <label for="inputAmount">Maximum amount of tickets to be sold</label>
                         <input type="number" 
-                                class="form-control @error('special_validity.amount') is-invalid @enderror" 
+                                class="form-control @error('amount') is-invalid @enderror" 
                                 id="inputAmount" 
                                 name="amount" 
                                 placeholder=""
                                 value="0">
                         <div class="invalid-feedback">
-                            {{$errors->first('special_validity.amount')}}
+                            {{$errors->first('amount')}}
                         </div>
                     </div>
                 </div>
@@ -129,13 +120,13 @@
                     <div class="col-12 col-lg-4 mb-3">
                         <label for="inputValidTill">Tickets can be sold until</label>
                         <input type="text"
-                               class="form-control @error('special_validity.valid_until') is-invalid @enderror"
+                               class="form-control @error('date') is-invalid @enderror"
                                id="inputValidTill"
-                               name="valid_until"
+                               name="date"
                                placeholder="yyyy-mm-dd HH:MM"
                                value="">
                         <div class="invalid-feedback">
-                            {{$errors->first('special_validity.valid_until')}}
+                            {{$errors->first('date')}}
                         </div>
                     </div>
                 </div>

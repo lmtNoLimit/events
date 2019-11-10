@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 Route::get('/testDB', function(){
 	$data=DB::table('events')->get();
-	echo $data;
+	return json_encode($data);
 });
 
 // auth route
@@ -27,9 +27,12 @@ Route::get('/logout', 'LoginController@logout');
 // event route
 Route::get('/events', 'EventController@getEvents')->middleware('auth');
 Route::get('/events/create', 'EventController@getCreateEvent');
-Route::post('/events/create', 'EventController@postCreateEvent');
+Route::post('/events', 'EventController@postCreateEvent');
 Route::get('/events/{id}', 'EventController@getEventDetail');
+Route::post('/events/{id}', 'EventController@postEventEdit');
 Route::get('/events/{id}/edit', 'EventController@getEventEdit');
-Route::post('/events/{id}/edit', 'EventController@postEventEdit');
-Route::get('/events/{id}/tickets/create', 'EventController@getCreateTicket');
-Route::post('/events/{id}/tickets/create','EventController@postCreateTicket');
+
+Route::get('/events/{id}/tickets/create', 'TicketController@getCreateTicket');
+Route::post('/events/{id}/tickets/create','TicketController@postCreateTicket');
+
+Route::get('/events/{id}/sessions/create', 'SessionController@getCreateSession');

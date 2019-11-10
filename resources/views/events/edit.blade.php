@@ -47,7 +47,7 @@
                 </div>
             </div>
 
-            <form method="POST" class="needs-validation" novalidate>
+            <form action="{{ url('/events/'.$event->id) }}"" method="POST" class="needs-validation" novalidate>
                 {{ csrf_field() }}
                 <div class="row">
                     <div class="col-12 col-lg-4 mb-3">

@@ -21,7 +21,7 @@
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
             <div class="sidebar-sticky">
                 <ul class="nav flex-column">
-                    <li class="nav-item"><a class="nav-link active" href="events/index.html">Manage Events</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/events">Manage Events</a></li>
                 </ul>
             </div>
         </nav>
@@ -38,7 +38,7 @@
                 </div>
             </div>
 
-            <form method="POST" class="needs-validation" novalidate>
+            <form action="/events" method="POST" class="needs-validation" novalidate>
                 {{ csrf_field() }}
                 <div class="row">
                     <div class="col-12 col-lg-4 mb-3">

@@ -80,7 +80,9 @@
                             <h5 class="card-title">{{$data->name}}</h5>
                             <p class="card-text">{{$data->cost}}</p>
                             <p class="card-text">
-                            <?php $special_validity = json_decode($data->special_validity,TRUE); ?>
+                            <?php 
+                                $special_validity = json_decode($data->special_validity, TRUE); 
+                            ?>
                                 {{
                                     $special_validity == ''
                                         ? ''
@@ -101,7 +103,7 @@
                     <h2 class="h4">Sessions</h2>
                     <div class="btn-toolbar mb-2 mb-md-0">
                         <div class="btn-group mr-2">
-                            <a href="sessions/create.html" class="btn btn-sm btn-outline-secondary">
+                            <a href="{{ url('/events/'.$event->id.'/sessions/create') }}" class="btn btn-sm btn-outline-secondary">
                                 Create new session
                             </a>
                         </div>
