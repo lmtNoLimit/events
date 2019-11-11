@@ -79,6 +79,7 @@ class SessionController extends Controller
         }
         else {
             // TODO Edit Session
+            
         }
     }
 }

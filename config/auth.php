@@ -1,5 +1,7 @@
 <?php
 
+use App\Organizer;
+
 return [
 
     /*
@@ -45,6 +47,14 @@ return [
             'provider' => 'organizers',
             'hash' => false,
         ],
+        'organizers' => [
+            'driver' => 'session',
+            'provider' => 'organizers'
+        ],
+        // 'attendees' => [
+        //     'driver' => 'token',
+        //     'provider' => 'attendees'
+        // ]
     ],
 
     /*
@@ -69,7 +79,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\Organizer::class,
         ],
-
+        // 'attendees' => [
+        //     'driver' => 'eloquen',
+        //     'model' => App\Attendee::class,
+        // ],
         'users' => [
             'driver' => 'database',
             'table' => 'organizers',

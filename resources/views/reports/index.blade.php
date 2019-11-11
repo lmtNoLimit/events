@@ -64,6 +64,34 @@
             </div>
 
             <!-- TODO create chart here -->
+            <script src="{{ asset('js/chart.js/dist/Chart.bundle.min.js') }}"></script>
+            <div class="row">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <canvas id="canvas" height="280" width="600"></canvas>
+                    </div>
+                </div>
+            </div>
+            <script>
+                let barChartData = 
+                window.onload = function() {
+                    var ctx = document.getElementById('canvas').getContext('2d');
+                    window.myBar = new Chart(ctx, {
+                        type: 'bar',
+                        data: barChartData,
+                        options: {
+                            responsive: true,
+                            legend: {
+                                position: 'top',
+                            },
+                            title: {
+                                display: true,
+                                text: 'Chart.js Bar Chart'
+                            }
+                        }
+                    });
+                };
+            </script>
 
         </main>
     </div>

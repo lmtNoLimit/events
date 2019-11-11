@@ -27,7 +27,7 @@ class TicketController extends Controller
             'name' => 'required',
             'cost' => 'required',
             'special_validity' => 'nullable',
-            'amount' => "required_if:special_validity,==,amount|integer|min:1",
+            'amount' => "required_if:special_validity,==,amount",
             'date' => "required_if:special_validity,==,date",
         ];
 

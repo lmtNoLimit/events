@@ -35,7 +35,7 @@ class LoginController extends Controller
     	} else {
             $email = $request->input('email');
     		$password = $request->input('password');
-    		if(Auth::attempt(['email' => $email, 'password' => $password])) {
+    		if(Auth::guard("organizers")->attempt(['email' => $email, 'password' => $password])) {
     			return redirect('/events');
     		} else {
     			$errors = new MessageBag(['errorlogin' => 'Email or password not correct']);

@@ -9,7 +9,8 @@ use App\Event;
 class Organizer extends Authenticatable
 {
     protected $table = "organizers";
-    protected $guarded = ['id'];
+    protected $guard = "organizer";
+    protected $fillable = ["id", "name", "email", "password_hash"];
     protected $hidden = ['password_hash'];
 
     public function getAuthPassword() {

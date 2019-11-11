@@ -94,9 +94,9 @@
                             class="form-control" 
                             id="selectSpecialValidity" 
                             name="special_validity">
-                            <option value="" selected>None</option>
-                            <option value="amount">Limited amount</option>
-                            <option value="date">Purchaseable till date</option>
+                            <option value="" @if(old('special_validity') == '')selected @endif>None</option>
+                            <option value="amount" @if(old('special_validity') == 'amount')selected @endif>Limited amount</option>
+                            <option value="date" @if(old('special_validity') == 'date')selected @endif>Purchaseable till date</option>
                         </select>
                     </div>
                 </div>
