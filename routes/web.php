@@ -44,7 +44,7 @@ Route::middleware('auth:organizers')->group(function() {
     
     Route::get('/events/{id}/sessions/create', 'SessionController@getCreateSession');
     Route::post('/events/{id}/sessions', 'SessionController@postCreateSession');
-    Route::get('/events/{eventId}/sessions/{sessionId}', 'SessionController@getEditSession');
+    Route::get('/events/{eventId}/sessions/{sessionId}/edit', 'SessionController@getEditSession');
     Route::post('/events/{eventId}/sessions/{sessionId}', 'SessionController@postEditSession');
     
     Route::get('/events/{eventId}/report', 'ReportController@Chartjs');
