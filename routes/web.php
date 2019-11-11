@@ -15,6 +15,7 @@
 Route::get('/login', 'LoginController@getLogin')->name('login');
 Route::post('/login', 'LoginController@postLogin');
 Route::get('/logout', 'LoginController@logout');
+
 // event route
 Route::middleware('auth:organizers')->group(function() {
     Route::get('/', 'EventController@getEvents');

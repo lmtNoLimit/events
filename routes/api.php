@@ -12,7 +12,8 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
+// /api/
+// localhost:8000/api/events
 Route::middleware('auth:attendees')->group(function() {
     Route::get('/events', "EventController@getEventsUser");
 });
