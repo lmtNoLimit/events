@@ -17,10 +17,21 @@ class EventController extends Controller
         $this->middleware('auth');
     }
 
-    public function getEvents(Request $request) {
+    public function getEventsUser() {
+        $events = Event::all();
+        return response()->json($events);
+    }
+
+    public function getEvents() {
         $user = Auth::user();
         $organizerId = $user->id;
         $events = DB::select("select * from events where organizer_id = '$organizerId' order by date asc");
+        // $attendee = DB::table('attendees')
+        //     ->join("registrations", "registrations.attendee_id", "=", "attendees.id")
+        //     ->join("event_tickets", "event_tickets.id", "=", "registrations.ticket_id")
+        //     ->join("events", "events.id", "=", "event_tickets.event_id")
+        //     // ->select(DB::raw("count('attendees.id') as total_registration"))
+        //     ->get();
         return view('events/index', [
             'events' => $events,
             'user' => $user

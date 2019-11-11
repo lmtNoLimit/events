@@ -44,17 +44,17 @@ return [
         ],
         'api' => [
             'driver' => 'token',
-            'provider' => 'organizers',
+            'provider' => 'attendees',
             'hash' => false,
         ],
         'organizers' => [
             'driver' => 'session',
             'provider' => 'organizers'
         ],
-        // 'attendees' => [
-        //     'driver' => 'token',
-        //     'provider' => 'attendees'
-        // ]
+        'attendees' => [
+            'driver' => 'token',
+            'provider' => 'attendees'
+        ]
     ],
 
     /*
@@ -79,10 +79,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\Organizer::class,
         ],
-        // 'attendees' => [
-        //     'driver' => 'eloquen',
-        //     'model' => App\Attendee::class,
-        // ],
+        'attendees' => [
+            'driver' => 'eloquent',
+            'model' => App\Attendee::class,
+        ],
         'users' => [
             'driver' => 'database',
             'table' => 'organizers',

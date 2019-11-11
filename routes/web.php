@@ -11,13 +11,6 @@
 |
 */
 
-
-
-Route::get('/testDB', function(){
-	$data=DB::table('events')->get();
-	return json_encode($data);
-});
-
 // auth route
 Route::get('/login', 'LoginController@getLogin')->name('login');
 Route::post('/login', 'LoginController@postLogin');
