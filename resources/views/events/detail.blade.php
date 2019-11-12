@@ -158,13 +158,21 @@
             </div>
 
             <div class="row channels">
-            @foreach($channels as $key => $data)
+            @foreach($channels as $key => $channel)
                 <div class="col-md-4">
                     <div class="card mb-4 shadow-sm">
                         <div class="card-body">
-                            <h5 class="card-title">{{$data->name}}</h5>
-                            <p class="card-text">1 Session, 2 Rooms
-                                <!-- "$data->session_count sessions, $data->room_count rooms" -->
+                            <h5 class="card-title">{{$channel->name}}</h5>
+                            <p class="card-text">
+                                <?php
+                                    $room_count = $channel->room_count == 1 
+                                        ? $channel->room_count." Room"
+                                        : $channel->room_count. " Rooms";
+                                    $session_count = $channel->session_count == 1 
+                                        ? $channel->session_count." Session"
+                                        : $channel->session_count. " Sessions";
+                                ?>
+                                {{"$session_count, $room_count"}}
                             </p>
                         </div>
                     </div>

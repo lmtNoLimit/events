@@ -80,9 +80,18 @@ class EventController extends Controller
             ->where('id', $id)
             ->first();
         $tickets = DB::select("select * from event_tickets where event_id = '$id'");
+
         $channels = DB::table("channels")
+            ->join("rooms", "channels.id", "=", "rooms.channel_id")
+            ->join("sessions", "sessions.room_id", "=", "rooms.id")
+            // ->select(DB::raw("count sessions.id as session_count"))
             ->where("event_id", "$id")
+            ->select("channels.name",
+                DB::raw("count('rooms.id') as room_count"),
+                DB::raw("count('sessions.id') as session_count"))
+            ->groupBy("channels.id", "channels.name")
             ->get();
+
         $rooms = DB::table("rooms")
             ->join("channels", "rooms.channel_id", "=", "channels.id")
             ->select("rooms.*")
