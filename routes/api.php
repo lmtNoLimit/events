@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Event;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +17,5 @@ use Illuminate\Http\Request;
 // localhost:8000/api/events
 // Route::middleware('auth:attendees')->group(function() {
 // });
-Route::get('/v1/events', "EventControllerUser@getEvents");
+Route::get('/v1/events', 'EventControllerUser@getEvents');
+Route::get('/v1/organizers/{organizerSlug}/events/{eventSlug}', "");
