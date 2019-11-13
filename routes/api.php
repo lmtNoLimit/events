@@ -14,6 +14,6 @@ use Illuminate\Http\Request;
 */
 // /api/
 // localhost:8000/api/events
-Route::middleware('auth:attendees')->group(function() {
-    Route::get('/events', "EventController@getEventsUser");
-});
+// Route::middleware('auth:attendees')->group(function() {
+// });
+Route::get('/v1/events', "EventControllerUser@getEvents");

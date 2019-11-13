@@ -42,4 +42,5 @@ Route::middleware('auth:organizers')->group(function() {
     Route::post('/events/{eventId}/sessions/{sessionId}', 'SessionController@postEditSession');
     
     Route::get('/events/{eventId}/report', 'ReportController@Chartjs');
+    Route::get('/eventsjson', 'EventController@jsondemo');
 });

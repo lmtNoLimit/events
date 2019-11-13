@@ -14,12 +14,7 @@ class EventController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
-    }
-
-    public function getEventsUser() {
-        $events = Event::all();
-        return response()->json($events);
+        $this->middleware('auth:organizers');
     }
 
     public function getEvents() {
@@ -87,9 +82,9 @@ class EventController extends Controller
             // ->select(DB::raw("count sessions.id as session_count"))
             ->where("event_id", "$id")
             ->select("channels.name",
-                DB::raw("count('rooms.id') as room_count"),
-                DB::raw("count('sessions.id') as session_count"))
-            ->groupBy("channels.id", "channels.name")
+                DB::raw("count('rooms.name') as room_count"),
+                DB::raw("count('sessions.title') as session_count"))
+            ->groupBy("channels.name")
             ->get();
 
         $rooms = DB::table("rooms")
@@ -155,6 +150,4 @@ class EventController extends Controller
             return redirect("/events/$id")->with("success", "Event successfully updated");
         }
     }
-
-    
 }
