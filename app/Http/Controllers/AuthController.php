@@ -11,7 +11,7 @@ use Illuminate\Support\MessageBag;
 use Hash;
 use App\Organizer;
 
-class LoginController extends Controller
+class AuthController extends Controller
 {
 
     public function getLogin() {
@@ -47,5 +47,35 @@ class LoginController extends Controller
     public function logout() {
         Auth::logout();
         return redirect('/login');
+    }
+
+    public function userLogin(Request $request) {
+        if (auth()->attempt(['email' => $request->input('lastname'), 'password' => $request->input('registration_code')])) {
+            // Authentication passed...
+            $user = auth()->user();
+            $user->login_token = str_random(60);
+            $user->save();
+            return response()->json($user);
+        }
+        
+        return response()->json([
+            'message' => 'Invalid login',
+        ], 401);
+    }
+
+    public function userLogout(Request $request) {
+        if (auth()->user()) {
+            $user = auth()->user();
+            $user->login_token = null; // clear login token
+            $user->save();
+    
+            return response()->json([
+                'message' => 'Logged out'
+            ], 200);
+        }
+        
+        return response()->json([
+            'message' => 'Unable to logout user'
+        ], 401);
     }
 }

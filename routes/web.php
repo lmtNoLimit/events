@@ -12,9 +12,9 @@
 */
 
 // auth route
-Route::get('/login', 'LoginController@getLogin')->name('login');
-Route::post('/login', 'LoginController@postLogin');
-Route::get('/logout', 'LoginController@logout');
+Route::get('/login', 'AuthController@getLogin')->name('login');
+Route::post('/login', 'AuthController@postLogin');
+Route::get('/logout', 'AuthController@logout');
 
 // event route
 Route::middleware('auth:web')->group(function() {

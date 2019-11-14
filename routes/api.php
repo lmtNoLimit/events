@@ -13,9 +13,16 @@ use App\Event;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-// /api/
-// localhost:8000/api/events
-// Route::middleware('auth:attendees')->group(function() {
-// });
+// setup CORS
+header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method, Authorization");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+
+Route::middleware('auth:api')->get('/user', function(Request $request) {
+    return $request->user();
+});
+Route::post('login', 'AuthController@userLogin');
+Route::middleware('auth:api')->post('logout', 'AuthController@userLogout');
+
 Route::get('/v1/events', 'EventControllerUser@getEvents');
 Route::get('/v1/organizers/{organizerSlug}/events/{eventSlug}', "EventControllerUser@getEventsByOrganizerSlugAndEventSlug");

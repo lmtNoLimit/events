@@ -10,8 +10,9 @@ class Attendee extends Authenticatable
     //
     protected $table="attendees";
     protected $guard = "attendee";
-    protected $fillable = ["id", "firstname", "lastname", "username"];
+    protected $fillable = ["id", "firstname", "lastname", "username", "registration_code", "login_token"];
     protected $hidden = ['registration_code'];
+
     public function getAuthPassword() {
         return $this->registration_code;
     }
