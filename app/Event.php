@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Organizer;
+use App\EventTicket;
+use App\Channel;
 
 class Event extends Model
 {
@@ -18,12 +20,12 @@ class Event extends Model
     // lien ket toi tickets
     public function tickets()
     {
-    	return $this->hasMany('app\event_tickets','event_id','id');
+    	return $this->hasMany(EventTicket::class);
     }
 
     // lien ket toi channels
     public function channels()
     {
-    	return $this->hasMany('app\channels','event_id','id');
+    	return $this->hasMany(Channel::class);
     }
 }

@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Channel;
+use App\Session;
 
 class Room extends Model
 {
@@ -18,6 +19,6 @@ class Room extends Model
     // lien ket toi sessions
     public function sessions()
     {
-    	return $this->hasMany('app\sessions','room_id','id');
+    	return $this->hasMany(Session::class);
     }
 }

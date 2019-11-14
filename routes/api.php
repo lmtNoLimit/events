@@ -18,4 +18,4 @@ use App\Event;
 // Route::middleware('auth:attendees')->group(function() {
 // });
 Route::get('/v1/events', 'EventControllerUser@getEvents');
-Route::get('/v1/organizers/{organizerSlug}/events/{eventSlug}', "");
+Route::get('/v1/organizers/{organizerSlug}/events/{eventSlug}', "EventControllerUser@getEventsByOrganizerSlugAndEventSlug");

@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Attendee;
+use App\SessionRegistration;
 
 class Registration extends Model
 {
@@ -18,6 +19,6 @@ class Registration extends Model
     // lien ket toi session_registrations
     public function session_registrations()
     {
-    	return $this->hasMany('app\session_registrations','registration_id','id');
+    	return $this->hasMany(SessionRegistration::class);
     }
 }

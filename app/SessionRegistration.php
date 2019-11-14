@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Registration;
+use App\Session;
 
 class SessionRegistration extends Model
 {
@@ -19,6 +20,6 @@ class SessionRegistration extends Model
     // lien ket toi session
     public function session()
     {
-    	return $this->belongsTo('app\sessions');
+    	return $this->belongsTo(Session::class);
     }
 }

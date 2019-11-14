@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Event;
+use App\Room;
 
 class Channel extends Model
 {
@@ -17,6 +18,6 @@ class Channel extends Model
 
     public function rooms()
     {
-    	return $this->hasMany('app\rooms', 'channel_id', 'id');
+    	return $this->hasMany(Room::class);
     }
 }

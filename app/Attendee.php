@@ -18,6 +18,6 @@ class Attendee extends Authenticatable
     // lien ket toi registrations
     public function registrations()
     {
-    	return $this->hasMany('app\registrations','attendee_id','id');
+    	return $this->hasMany('App\Registration');
     }
 }

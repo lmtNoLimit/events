@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Room;
+use App\SessionRegistration;
 
 class Session extends Model
 {
@@ -19,6 +20,6 @@ class Session extends Model
     // lien ket toi session_registration
     public function session_registrations()
     {
-    	return $this->hasMany('app\session_registrations','session_id','id');
+    	return $this->hasMany(SessionRegistration::class);
     }
 }
