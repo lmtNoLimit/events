@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use DB;
 use App\Event;
 use App\EventTicket;
+use App\Channel;
+use App\Session;
+use App\Room;
 use Redirect;
 use Validator;
 use Illuminate\Support\Facades\Auth;
@@ -70,23 +73,30 @@ class EventController extends Controller
 
     public function getEventDetail($id) {
         $user = Auth::user();
-        $event = DB::table('events')
-            ->where('organizer_id', $user->id)
+        $event = Event::where('organizer_id', $user->id)
             ->where('id', $id)
             ->first();
-        $tickets = DB::select("select * from event_tickets where event_id = '$id'");
+        $tickets = EventTicket::where("event_id", $id)->get();
 
-        $channels = DB::table("channels")
-            ->join("rooms", "channels.id", "=", "rooms.channel_id")
-            ->join("sessions", "sessions.room_id", "=", "rooms.id")
-            // ->select(DB::raw("count sessions.id as session_count"))
-            ->where("event_id", "$id")
-            ->select("channels.name",
-                DB::raw("count('rooms.name') as room_count"),
-                DB::raw("count('sessions.title') as session_count"))
-            ->groupBy("channels.name")
+        $channels = Channel::where("event_id", "$id")
             ->get();
-
+        foreach($channels as $key => $channel) {
+            $sessions = Session::join("rooms", "rooms.id", "=", "sessions.room_id")
+                ->join("channels", "channels.id", "=", "rooms.channel_id")
+                ->where("event_id", $channel->event_id)
+                ->where("channel_id", $channel->id)
+                ->select(DB::raw("count(sessions.id) as session_count"))
+                ->groupBy("channels.name")
+                ->first();
+            $rooms = Room::join('channels', "channels.id", "=", "rooms.channel_id")
+                ->where("event_id", $channel->event_id)
+                ->where("channel_id", $channel->id)
+                ->select(DB::raw("count(rooms.id) as room_count"))
+                ->groupBy("channels.name")
+                ->first();
+            $channel->session_count = $sessions->session_count;
+            $channel->room_count = $rooms->room_count;
+        }
         $rooms = DB::table("rooms")
             ->join("channels", "rooms.channel_id", "=", "channels.id")
             ->select("rooms.*")
