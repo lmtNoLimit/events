@@ -51,10 +51,10 @@ return [
         //     'driver' => 'session',
         //     'provider' => 'organizers'
         // ],
-        // 'attendees' => [
-        //     'driver' => 'token',
-        //     'provider' => 'attendees'
-        // ]
+        'attendees' => [
+            'driver' => 'token',
+            'provider' => 'attendees'
+        ]
     ],
 
     /*

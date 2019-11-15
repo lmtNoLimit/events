@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\api;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Event;
 use App\Channel;
@@ -9,14 +10,8 @@ use App\Room;
 use App\Organizer;
 use DB;
 
-
-class EventControllerUser extends Controller
+class EventController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('auth:attendees');
-    // }
-
     public function getEvents() {
         $events = DB::table("events")->get();
         foreach ($events as $key => $event) {
@@ -101,5 +96,9 @@ class EventControllerUser extends Controller
             $event->tickets = $tickets;
             return response()->json($event, 200);
         }
+    }
+
+    public function eventRegistration() {
+        
     }
 }
