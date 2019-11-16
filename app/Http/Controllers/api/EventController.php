@@ -11,6 +11,7 @@ use App\Organizer;
 use App\Registration;
 use App\Attendee;
 use App\EventTicket;
+use App\SessionRegistration;
 
 class EventController extends Controller
 {
@@ -163,7 +164,34 @@ class EventController extends Controller
         }
     }
 
-    public function getRegistrations() {
-
+    public function getRegistrations(Request $request) {
+        $token = $request->token;
+        $attendee = Attendee::where("login_token", $token)->first();
+        if(!$attendee) {
+            return response()->json([
+                "message" => "User not logged in"
+            ], 401);
+        } else {
+            $registrations = Registration::where("registrations.attendee_id", $token)
+                ->get()
+                ->map(function ($registration) {
+                    $event = EventTicket::join("events", "events.id", "=", "event_tickets.event_id")
+                        ->where("event_tickets.id", $registration->ticket_id)
+                        ->select("events.id", "events.name", "events.slug", "events.date")
+                        ->first();
+                    $organizer = Organizer::join("events", "events.organizer_id", "=", "organizers.id")
+                        ->where("events.id", $event->id)
+                        ->select("organizers.id", "organizers.name", "organizers.slug")
+                        ->first();
+                    $sessionRegistrations = SessionRegistration::where("registration_id", $registration->id)
+                        ->get()
+                        ->map(function ($session) {
+                            return $session->session_id;
+                        });
+                    $event->organizer = $organizer;
+                    return ["event" => $event, "session_ids" => $sessionRegistrations];
+                });
+            return response()->json(["registrations" => $registrations]);
+        }
     }
 }
