@@ -27,6 +27,6 @@ Route::get('/v1/events', 'api\EventController@getEvents');
 
 Route::get('/v1/organizers/{organizerSlug}/events/{eventSlug}', "api\EventController@getEventsByOrganizerSlugAndEventSlug");
 
-Route::post('/v1/organizers/{organizerSlug}/events/{eventSlug}/registration');
+Route::post('/v1/organizers/{organizerSlug}/events/{eventSlug}/registration', "api\EventController@eventRegistration");
 
 Route::get('/v1/registrations');

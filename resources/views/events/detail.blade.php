@@ -76,16 +76,16 @@
                             <p class="card-text">{{$data->cost}}</p>
                             <p class="card-text">
                             <?php 
-                                $special_validity = json_decode($data->special_validity, TRUE);
+                                $special_validity = json_decode($data->special_validity);
                                 $special_info = "";
-                                if(isset($special_validity['type'])) {
-                                    if($special_validity['type'] === "date") {
-                                        $special_info = "Available ultil ".date('F j, Y', strtotime($special_validity['date']));
+                                if(isset($special_validity->type)) {
+                                    if($special_validity->type === "date") {
+                                        $special_info = "Available ultil ".date('F j, Y', strtotime($special_validity->date));
                                     } else {
-                                        if($special_validity['amount'] == 1) {
-                                            $special_info = $special_validity['amount']." ticket available";
+                                        if($special_validity->amount == 1) {
+                                            $special_info = $special_validity->amount." ticket available";
                                         } else {
-                                            $special_info = $special_validity['amount']." tickets available";
+                                            $special_info = $special_validity->amount." tickets available";
                                         }
                                     }
                                 } else {

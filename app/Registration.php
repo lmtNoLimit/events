@@ -9,7 +9,7 @@ use App\SessionRegistration;
 class Registration extends Model
 {
     protected $table = "registrations";
-
+    public $timestamps = false;
     // lien ket toi attendees
     public function attendee()
     {

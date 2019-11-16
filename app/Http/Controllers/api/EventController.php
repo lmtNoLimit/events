@@ -8,19 +8,19 @@ use App\Event;
 use App\Channel;
 use App\Room;
 use App\Organizer;
-use DB;
+use App\Registration;
+use App\Attendee;
+use App\EventTicket;
 
 class EventController extends Controller
 {
     public function getEvents() {
-        $events = DB::table("events")->get();
+        $events = Event::all();
         foreach ($events as $key => $event) {
-            $organizer = DB::table('organizers')->where("id", $event->organizer_id)->first();
-            $event->organizer = [
-                "id" => $organizer->id,
-                "name" => $organizer->name,
-                "slug" => $organizer->slug
-            ];
+            $organizer = Organizer::where("id", $event->organizer_id)
+                ->select("id", "name", "slug")
+                ->first();
+            $event->organizer = $organizer;
         }
         return response()->json(['events' => $events]);
     }
@@ -28,7 +28,6 @@ class EventController extends Controller
     public function getEventsByOrganizerSlugAndEventSlug($organizerSlug, $eventSlug) {
         //get organizer
         $organizer = Organizer::where("slug", $organizerSlug)->first();
-        
         //get event
         $event = Event::join("organizers", "organizers.id", "=", "events.organizer_id")
             ->where("organizers.slug", $organizerSlug)
@@ -97,9 +96,65 @@ class EventController extends Controller
         }
     }
 
-    public function eventRegistration(Request $request) {
+    public function eventRegistration(Request $request, $organizerSlug, $eventSlug) {
         $token = $request->token;
-        
-        
+        $ticketId = $request->input('ticket_id');
+        $sessionIds = $request->input('session_ids');
+        $attendee = Attendee::where("login_token", $token)->first();
+
+        $userTicket = Registration::where("attendee_id", $attendee->id)
+            ->where("ticket_id", $ticketId)->first();
+
+        $selectedTicket = EventTicket::join("events", "events.id", "=", "event_tickets.event_id")
+            ->join("organizers", "organizers.id", "=", "events.organizer_id")
+            ->where("organizers.slug", $organizerSlug)
+            ->where("events.slug", $eventSlug)
+            ->where("event_tickets.id", $ticketId)
+            ->first();
+        $specialValidity = json_decode($selectedTicket->special_validity);
+        $isTicketAvailable = true;
+        $ticketInfo = null;
+        if(isset($specialValidity->type)) {
+            if($specialValidity->type == "date") {
+                $ticketInfo = $specialValidity->date;
+                if(date("Y-m-d") > $ticketInfo) {
+                    $isTicketAvailable = false;
+                } else {
+                    $isTicketAvailable = true;
+                }
+            } else {
+                $ticketInfo = $specialValidity->amount;
+                if($ticketInfo*1 <= 0) {
+                    $isTicketAvailable = false;
+                } else {
+                    $isTicketAvailable = true;
+                }
+            }
+        } else {
+            $isTicketAvailable = true;
+        }
+        // return response()->json(date("Y-m-d"));
+        if(!$attendee) {
+            return response()->json([
+                "message" => "User not logged in"
+            ], 401);
+        } else if($userTicket) {
+            return response()->json([
+                "message" => "User already registered this event"
+            ], 401);
+        } else if(!$isTicketAvailable) {
+            return response()->json([
+                "message" => "Ticket is no longer available"
+            ], 401);
+        } else {
+            $registration = new Registration;
+            $registration->attendee_id = $attendee->id;
+            $registration->ticket_id = $selectedTicket->id;
+            $registration->registration_time = date("Y-m-d H:m:s");
+            $registration->save();
+            return response()->json([
+                "message" => "Registration successful"
+            ], 200);
+        }
     }
 }
