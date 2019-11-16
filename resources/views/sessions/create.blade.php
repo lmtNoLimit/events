@@ -90,7 +90,7 @@
                 <div class="row">
                     <div class="col-12 col-lg-4 mb-3">
                         <label for="selectRoom">Room</label>
-                        <select class="form-control @error('room') is-invalid @enderror" id="selectRoom" name="room">
+                        <select class="form-control @error('room') is-invalid @enderror @if($errors->has('roombooked')) is-invalid @endif" id="selectRoom" name="room">
                             @foreach($rooms as $key => $room)
                                 <option value="{{$room->id}}">
                                     {{$room->name}}
@@ -99,6 +99,9 @@
                         </select>
                         <div class="invalid-feedback">
                             {{$errors->first('room')}}
+                            @if($errors->has('roombooked'))
+                                {{$errors->first('roombooked')}}
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -123,7 +126,7 @@
                                id="inputStart"
                                name="start"
                                placeholder="yyyy-mm-dd HH:MM"
-                               value="">
+                               value="{{old('start')}}">
                         <div class="invalid-feedback">
                             {{$errors->first('start')}}
                         </div>
@@ -135,7 +138,7 @@
                                id="inputEnd"
                                name="end"
                                placeholder="yyyy-mm-dd HH:MM"
-                               value="">
+                               value="{{old('end')}}">
                         <div class="invalid-feedback">
                             {{$errors->first('end')}}
                         </div>
@@ -145,7 +148,7 @@
                 <div class="row">
                     <div class="col-12 mb-3">
                         <label for="textareaDescription">Description</label>
-                        <textarea class="form-control @error('description') is-invalid @enderror" id="textareaDescription" name="description" placeholder="" rows="5"></textarea>
+                        <textarea class="form-control @error('description') is-invalid @enderror" id="textareaDescription" name="description" placeholder="" rows="5">{{old('description')}}</textarea>
                         <div class="invalid-feedback">
                             {{$errors->first('description')}}
                         </div>

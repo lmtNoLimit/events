@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\MessageBag;
 use DB;
 use Redirect;
 use Validator;
@@ -50,17 +51,26 @@ class SessionController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
         else {
-            $session = new Session;
-            $session->type = $request->input('type');
-            $session->room_id = $request->input('room');
-            $session->title = $request->input('title');
-            $session->speaker = $request->input('speaker');
-            $session->start = $request->input('start');
-            $session->end = $request->input('end');
-            $session->cost = $request->input('cost');
-            $session->description = $request->input('description');
-            $session->save();
-            return redirect("/events/$id")->with("success", "Session successfully created");
+            $sessionForCheck = Session::where("room_id", $request->input('room'))
+                ->where("start", "<=", $request->input('start'))
+                ->where("end", ">=", $request->input('start'))
+                ->first();
+            if($sessionForCheck) {
+                $errors = new MessageBag(['roombooked' => 'Room already booked during this time']);
+                return redirect()->back()->withErrors($errors)->withInput();
+            } else {
+                $session = new Session;
+                $session->type = $request->input('type');
+                $session->room_id = $request->input('room');
+                $session->title = $request->input('title');
+                $session->speaker = $request->input('speaker');
+                $session->start = $request->input('start');
+                $session->end = $request->input('end');
+                $session->cost = $request->input('cost');
+                $session->description = $request->input('description');
+                $session->save();
+                return redirect("/events/$id")->with("success", "Session successfully created");
+            }
         }
     }
 

@@ -47,14 +47,6 @@ return [
             'provider' => 'attendees',
             'hash' => false,
         ],
-        // 'organizers' => [
-        //     'driver' => 'session',
-        //     'provider' => 'organizers'
-        // ],
-        'attendees' => [
-            'driver' => 'token',
-            'provider' => 'attendees'
-        ]
     ],
 
     /*

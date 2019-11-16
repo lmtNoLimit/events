@@ -6,9 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Validator;
-use Auth;
 use Illuminate\Support\MessageBag;
-use Hash;
 use App\Organizer;
 
 class AuthController extends Controller
@@ -35,7 +33,7 @@ class AuthController extends Controller
     	} else {
             $email = $request->input('email');
     		$password = $request->input('password');
-    		if(Auth::attempt(['email' => $email, 'password' => $password])) {
+    		if(auth()->attempt(['email' => $email, 'password' => $password])) {
     			return redirect('/events');
     		} else {
     			$errors = new MessageBag(['errorlogin' => 'Email or password not correct']);
