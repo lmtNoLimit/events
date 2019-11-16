@@ -9,7 +9,9 @@ use App\Attendee;
 class AuthController extends Controller
 {
     public function getUser(Request $request) {
-        return response()->json(auth()->check());
+        $token = $request->token;
+        $user = Attendee::where('login_token', $token)->first();
+        return response()->json($user);
     }
     
     public function login(Request $request) {
@@ -19,7 +21,6 @@ class AuthController extends Controller
             ->where('registration_code', $registrationCode)
             ->first();
         if ($attendee) {
-            // session()->
             $attendee->login_token = hash("md5", $attendee->username);
             $attendee->save();
             return response()->json($attendee);
@@ -29,12 +30,12 @@ class AuthController extends Controller
         ], 401);
     }
 
-    public function logout(Request $request, $token) {
+    public function logout(Request $request) {
+        $token = $request->token;
         $attendee = Attendee::where("login_token", $token)
             ->update([
             'login_token' => null
             ]);
-        // return response()->json($user);
         return response()->json([
             'message' => 'Logged out'
         ], 200);

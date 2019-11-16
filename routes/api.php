@@ -23,7 +23,6 @@ header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 Route::get('/v1/user', 'api\AuthController@getUser');
 Route::post('/v1/login', 'api\AuthController@login');
 Route::post('/v1/logout', 'api\AuthController@logout');
-Route::post('/v1/logout?token', 'api\AuthController@logout');
 
 Route::get('/v1/events', 'api\EventController@getEvents');
 Route::get('/v1/organizers/{organizerSlug}/events/{eventSlug}', "api\EventController@getEventsByOrganizerSlugAndEventSlug");
