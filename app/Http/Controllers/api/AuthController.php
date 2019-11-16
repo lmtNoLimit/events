@@ -33,11 +33,16 @@ class AuthController extends Controller
     public function logout(Request $request) {
         $token = $request->token;
         $attendee = Attendee::where("login_token", $token)
-            ->update([
-            'login_token' => null
-            ]);
+            ->first();
+        if($attendee) {
+            $attendee->login_token = null;
+            $attendee->save();
+            return response()->json([
+                'message' => 'Logout success'
+            ], 200);
+        }
         return response()->json([
-            'message' => 'Logged out'
-        ], 200);
+            "message" => "Invalid token"
+        ], 401);
     }
 }
