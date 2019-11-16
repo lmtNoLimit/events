@@ -58,16 +58,16 @@ class EventController extends Controller
             ->get();
         
         $tickets = array_map(function($ticket) {
-            $special_validity = json_decode($ticket->special_validity, true);
+            $special_validity = json_decode($ticket->special_validity);
             $description = null;
-            if(isset($special_validity['type'])) {
-                if($special_validity['type'] === "date") {
-                    $description = "Available ultil ".date('F j, Y', strtotime($special_validity['date']));
+            if(isset($special_validit->type)) {
+                if($special_validity->type === "date") {
+                    $description = "Available ultil ".date('F j, Y', strtotime($special_validity->date));
                 } else {
-                    if($special_validity['amount'] == 1) {
-                        $description = $special_validity['amount']." ticket available";
+                    if($special_validity->amount == 1) {
+                        $description = $special_validity->amount." ticket available";
                     } else {
-                        $description = $special_validity['amount']." tickets available";
+                        $description = $special_validity->amount." tickets available";
                     }
                 }
             } else {
@@ -133,7 +133,6 @@ class EventController extends Controller
         } else {
             $isTicketAvailable = true;
         }
-        // return response()->json(date("Y-m-d"));
         if(!$attendee) {
             return response()->json([
                 "message" => "User not logged in"
@@ -152,9 +151,19 @@ class EventController extends Controller
             $registration->ticket_id = $selectedTicket->id;
             $registration->registration_time = date("Y-m-d H:m:s");
             $registration->save();
+            foreach($sessionIds as $key => $sessionId) {
+                $sessionRegistration = new SessionRegistration;
+                $sessionRegistration->registration_id = $registration->id;
+                $sessionRegistration->session_id = $sessionId;
+                $sessionRegistration->save();
+            }
             return response()->json([
                 "message" => "Registration successful"
             ], 200);
         }
+    }
+
+    public function getRegistrations() {
+
     }
 }
