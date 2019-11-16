@@ -51,8 +51,7 @@ class EventController extends Controller
                 ];
             });
 
-        $tickets = DB::table("event_tickets")
-            ->join("events", "events.id", "=", "event_tickets.event_id")
+        $tickets = EventTicket::join("events", "events.id", "=", "event_tickets.event_id")
             ->join("organizers", "organizers.id", "=", "events.organizer_id")
             ->where("events.slug", $eventSlug)
             ->where("organizers.slug", $organizerSlug)
@@ -98,7 +97,9 @@ class EventController extends Controller
         }
     }
 
-    public function eventRegistration() {
+    public function eventRegistration(Request $request) {
+        $token = $request->token;
+        
         
     }
 }

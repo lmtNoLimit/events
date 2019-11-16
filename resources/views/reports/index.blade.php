@@ -22,21 +22,21 @@
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
             <div class="sidebar-sticky">
                 <ul class="nav flex-column">
-                    <li class="nav-item"><a class="nav-link" href="events/index.html">Manage Events</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/events">Manage Events</a></li>
                 </ul>
 
                 <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                     <span>{{$event->name}}</span>
                 </h6>
                 <ul class="nav flex-column">
-                    <li class="nav-item"><a class="nav-link" href="events/detail.html">Overview</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{url('/events/'.$event->id)}}">Overview</a></li>
                 </ul>
 
                 <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                     <span>Reports</span>
                 </h6>
                 <ul class="nav flex-column mb-2">
-                    <li class="nav-item"><a class="nav-link active" href="reports/index.html">Room capacity</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="{{url('/events/'.$event->id.'/report')}}">Room capacity</a></li>
                 </ul>
             </div>
         </nav>
@@ -69,9 +69,9 @@
                 let sessions = data.map(item => item.title);
                 let attendeeBgColor = data.map(item => {
                     if(item.attendee_count > item.room_capacity) {
-                        return 'rgba(201, 44, 65, 0.93)';
+                        return 'rgba(255, 0, 0, .5)';
                     }
-                    return 'rgba(173, 235, 153, 1)';
+                    return 'rgba(0, 255, 0, .5)';
                 });
                 let barChartData = {
                     labels: sessions,
@@ -82,7 +82,7 @@
                         data: data.map(item => item.attendee_count)
                     }, {
                         label: 'Capacity',
-                        backgroundColor: 'rgba(153, 187, 235, 1)',
+                        backgroundColor: 'rgba(0, 0, 235, .5)',
                         borderWidth: 1,
                         data: data.map(item => item.room_capacity)
 			        }]

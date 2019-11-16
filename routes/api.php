@@ -15,14 +15,18 @@ use App\Event;
 */
 
 // setup CORS
-header('Access-Control-Allow-Origin: *');
-header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method, Authorization");
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+// header('Access-Control-Allow-Origin: *');
+// header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method, Authorization");
+// header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 
-// Route::middleware('auth:attendees')->get('/v1/user', 'api\AuthController@getUser');
 Route::get('/v1/user', 'api\AuthController@getUser');
 Route::post('/v1/login', 'api\AuthController@login');
 Route::post('/v1/logout', 'api\AuthController@logout');
 
 Route::get('/v1/events', 'api\EventController@getEvents');
+
 Route::get('/v1/organizers/{organizerSlug}/events/{eventSlug}', "api\EventController@getEventsByOrganizerSlugAndEventSlug");
+
+Route::post('/v1/organizers/{organizerSlug}/events/{eventSlug}/registration');
+
+Route::get('/v1/registrations');

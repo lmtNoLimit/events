@@ -37,13 +37,13 @@
             </div>
 
             <div class="row events">
-                @foreach($events as $key => $data)
+                @foreach($events as $key => $event)
                 <div class="col-md-4">
                     <div class="card mb-4 shadow-sm">
-                        <a href="{{ url('/events/'.$data->id)}}" class="btn text-left event">
+                        <a href="{{ url('/events/'.$event->id)}}" class="btn text-left event">
                             <div class="card-body">
-                                <h5 class="card-title">{{$data->name}}</h5>
-                                <p class="card-subtitle">{{$data->date}}</p>
+                                <h5 class="card-title">{{$event->name}}</h5>
+                                <p class="card-subtitle">{{date("F j, Y", strtotime($event->date))}}</p>
                                 <hr>
                                 <p class="card-text">3,546 registrations</p>
                             </div>
