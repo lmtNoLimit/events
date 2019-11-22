@@ -58,29 +58,36 @@ class EventController extends Controller
             ->select("event_tickets.id", "event_tickets.name", "event_tickets.cost", "event_tickets.special_validity")
             ->get();
         
-        $tickets = array_map(function($ticket) {
+        foreach ($tickets as $key => $ticket) {
             $special_validity = json_decode($ticket->special_validity);
             $description = null;
-            if(isset($special_validit->type)) {
+            $available = true;
+            if(isset($special_validity->type)) {
                 if($special_validity->type === "date") {
                     $description = "Available ultil ".date('F j, Y', strtotime($special_validity->date));
+                    if(date("Y-m-d") > $special_validity->date) {
+                        $available = false;
+                    }
+                    else {
+                        $available = true;
+                    }
                 } else {
-                    if($special_validity->amount == 1) {
-                        $description = $special_validity->amount." ticket available";
+                    $description = $special_validity->amount." tickets available";
+                    if($special_validity->amount == 0) {
+                        $available = false;
                     } else {
-                        $description = $special_validity->amount." tickets available";
+                        $available = true;
                     }
                 }
             } else {
                 $description = NULL;
+                $available = true;
             }
-            return [
-                "id" => $ticket->id,
-                "name" => $ticket->name,
-                "description" => $description,
-                "cost" => $ticket->cost*1
-            ];
-        }, $tickets->toArray());
+            $ticket->makeHidden("special_validity");
+            $ticket->description = $description;
+            $ticket->cost = $ticket->cost*1;
+            $ticket->available = $available;
+        }
         
         if(!$organizer) {
             return response()->json([
